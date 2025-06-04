@@ -136,7 +136,7 @@ def main():
     
     while True:
         print(f"\n{Fore.MAGENTA} 16 hərf daxil edin (çıxış üçün '{Fore.RED}q{Fore.MAGENTA}'):")
-        letters = input(f"{Fore.YELLOW} {Style.RESET_ALL}").strip()
+        letters = input(f"{Fore.YELLOW}->{Style.RESET_ALL}").strip()
         
         if letters.lower() == 'q':
             print(f"{Fore.GREEN} Görüşənədək!")
