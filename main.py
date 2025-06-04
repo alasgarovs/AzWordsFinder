@@ -22,10 +22,10 @@ class AzerbaijaniGridWordHunter:
         """Excel faylından sözləri yüklə"""
         try:
             if not os.path.exists(excel_file):
-                print(f"{Fore.RED}❌ {excel_file} tapılmadı!")
+                print(f"{Fore.RED}{excel_file} tapılmadı!")
                 return
             
-            print(f"{Fore.CYAN}📂 {excel_file} faylı oxunur...")
+            print(f"{Fore.CYAN}{excel_file} faylı oxunur...")
             
             ext = excel_file.split('.')[-1].lower()
             engine = 'xlrd' if ext == 'xls' else 'openpyxl' if ext == 'xlsx' else None
@@ -41,10 +41,10 @@ class AzerbaijaniGridWordHunter:
                     if len(clean) >= 2:
                         self.words.add(clean)
             
-            print(f"{Fore.GREEN}✅ {len(self.words)} söz yükləndi")
+            print(f"{Fore.GREEN}{len(self.words)} söz yükləndi")
             
         except Exception as e:
-            print(f"{Fore.RED}❌ Xəta: {e}")
+            print(f"{Fore.RED}Xəta: {e}")
     
     def normalize_az(self, text):
         """Azərbaycan hərflərini normallaşdır"""
@@ -73,7 +73,7 @@ class AzerbaijaniGridWordHunter:
     
     def print_grid(self):
         """Şəbəkəni göstər"""
-        print(f"\n{Fore.YELLOW}🔤 Şəbəkə:")
+        print(f"\n{Fore.YELLOW} Şəbəkə:")
         for row in self.grid:
             colored_row = " ".join(f"{Back.BLUE}{Fore.WHITE} {c.upper()} {Style.RESET_ALL}" for c in row)
             print(f"  {colored_row}")
@@ -125,25 +125,25 @@ class AzerbaijaniGridWordHunter:
         return found
 
 def main():
-    print(f"{Fore.CYAN}{Style.BRIGHT}🎯 Azərbaycan 4x4 Şəbəkə Söz Ovçusu")
+    print(f"{Fore.CYAN}{Style.BRIGHT} Azərbaycan 4x4 Şəbəkə Söz Ovçusu")
     print(f"{Fore.CYAN}{'=' * 40}")
     
     hunter = AzerbaijaniGridWordHunter("words.xlsx")
     
     if not hunter.words:
-        print(f"{Fore.RED}❌ Söz bazası yüklənmədi!")
+        print(f"{Fore.RED} Söz bazası yüklənmədi!")
         return
     
     while True:
-        print(f"\n{Fore.MAGENTA}🔤 16 hərf daxil edin (çıxış üçün '{Fore.RED}q{Fore.MAGENTA}'):")
-        letters = input(f"{Fore.YELLOW}➤ {Style.RESET_ALL}").strip()
+        print(f"\n{Fore.MAGENTA} 16 hərf daxil edin (çıxış üçün '{Fore.RED}q{Fore.MAGENTA}'):")
+        letters = input(f"{Fore.YELLOW} {Style.RESET_ALL}").strip()
         
         if letters.lower() == 'q':
-            print(f"{Fore.GREEN}👋 Görüşənədək!")
+            print(f"{Fore.GREEN} Görüşənədək!")
             break
         
         if not hunter.create_grid(letters):
-            print(f"{Fore.RED}❌ 16 hərf lazımdır!")
+            print(f"{Fore.RED} 16 hərf lazımdır!")
             continue
         
         hunter.print_grid()
@@ -151,7 +151,7 @@ def main():
         
         if found_words:
             total = sum(len(words) for words in found_words.values())
-            print(f"\n{Fore.GREEN}📝 Tapılan sözlər: {Style.BRIGHT}{total}")
+            print(f"\n{Fore.GREEN} Tapılan sözlər: {Style.BRIGHT}{total}")
             print(f"{Fore.CYAN}{'-' * 30}")
             
             for length in sorted(found_words.keys()):
@@ -159,7 +159,7 @@ def main():
                 colored_words = f"{Fore.CYAN}{Style.BRIGHT}, ".join(words)
                 print(f"\n{Fore.YELLOW}{length} hərfli ({Fore.CYAN}{len(words)}{Fore.YELLOW}): {Fore.CYAN}{Style.BRIGHT}{colored_words}")
         else:
-            print(f"\n{Fore.RED}❌ Söz tapılmadı!")
+            print(f"\n{Fore.RED} Söz tapılmadı!")
 
 if __name__ == "__main__":
     main()
